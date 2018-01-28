@@ -1,19 +1,17 @@
 #!/usr/bin/env python
-# Comando event manager example
-# 2016/07/22 : Brett Graham
+# Comando namespace example
+# 2017/02/25 : Brett Graham
 #
-# This example shows how to use an EventManager to control the arduino led
+# This example shows how to use a Namespace to control the arduino led
 # from python
 
 # ctypes is useful for defining fixed size data types
 import ctypes
 import sys
+import time
 
 import pycomando
 import serial
-
-if sys.version_info >= (3, 0):
-    raw_input = input
 
 if len(sys.argv) < 2:
     raise Exception("A serial port must be supplied: commands.py <port>")
@@ -44,12 +42,6 @@ def print_message(msg):
 text.receive_message = print_message
 
 
-# define a callback that will be called when the arduino sends
-# a specific command to python
-def led_set(v):
-    print("Led was set to value: %s" % v)
-
-
 # define the commands on the command protocol
 commands = {
     0: {
@@ -61,30 +53,9 @@ commands = {
 
 # construct an event manager to allow easier access to the commands
 mgr = pycomando.protocols.command.EventManager(cmd, commands)
+ns = mgr.build_namespace()
 
-# register the callback "led_set" to be called whenever the arduino
-# sends a led_set command to python
-mgr.on('led_set', led_set)
-
-# send an initial (blocking) command to the arduino to turn off the led
-mgr.blocking_trigger('led_set', 0)
-
-# this code below reads input from the user and sets the led value
-# to that input and updates comando to handle any incoming messages
-# from the arduino
-try:
-    while True:
-        try:
-            # read the user input
-            i = int(raw_input(
-                "Please input a value for the led (Ctrl-C to exit)"))
-            # send the input to the arduino (asynchronously)
-            mgr.trigger('led_set', i)
-        except Exception as e:
-            print("Invalid input: %s" % e)
-        # update comando
-        while serial_port.inWaiting():
-            com.handle_stream()
-except KeyboardInterrupt:
-    # finally, close the serial port and exit
-    serial_port.close()
+print("Set to 1: %s" % ns.led_set(1))
+time.sleep(1)
+print("Set to 0: %s" % ns.led_set(0))
+serial_port.close()
