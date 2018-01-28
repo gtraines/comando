@@ -5,4 +5,4 @@ on the payload bytes. Protocol messages contain the following:
 - payload [N bytes] the additional payload
 
 Protocol ids must be unique and can be limited to some maximum to reduce the
-memory of the parser on the Arduino side. See [comando.h](https://github.com/braingram/comando/blob/master/libraries/comando/comando.h) for the MAX_PROTOCOLS define.
+memory of the parser on the Arduino side. See [commando.h](https://github.com/braingram/commando/blob/master/libraries/commando/commando.h) for the MAX_PROTOCOLS define.

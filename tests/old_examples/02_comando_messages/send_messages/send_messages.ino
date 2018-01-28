@@ -1,13 +1,13 @@
 /*
- * A (pointless) example showing how by default the Comando class echos
+ * A (pointless) example showing how by default the Commando class echos
  * any messages it receives.
  * Load this onto an arduino, then call the corresponding send_messages.py with python
  * You should see two messages sent to the arduino ("hi" and "how are you?") and those same
  * messages echoed back to the computer.
  */
-#include<comando.h>
+#include<commando.h>
 
-Comando cmd = Comando(Serial);
+Commando cmd = Commando(Serial);
 EchoProtocol echo = EchoProtocol(cmd);
 
 void setup() {

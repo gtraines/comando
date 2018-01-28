@@ -35,7 +35,7 @@ def build_message(bs):
     return chr(n) + bs + chr(checksum(bs))
 
 
-class Comando(object):
+class Commando(object):
     def __init__(self, stream, protocols=None):
         self.stream = stream
         self.protocols = {}
@@ -59,7 +59,7 @@ class Comando(object):
                 # this is a valid message, so parse it and keep trying to sync
                 try:
                     self.receive_message(bs)
-                except errors.ComandoError as err:
+                except errors.CommandoError as err:
                     logging.warning("resyncing on message error: %s" % err)
                     return self._resync(chars[e+1:])
                 if e + 1 >= len(chars):  # we're in sync!

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Comando command protocol example
+# Commando command protocol example
 # 2016/03/23 : Brett Graham
 #
 # This is a simple example that shows how to control the arduino led
@@ -10,14 +10,14 @@
 # - send commands from python to the arduino
 # - receive commands from the arduino in python
 #
-# see libraries/comando/examples/commands in the comando repository for the
+# see libraries/commando/examples/commands in the commando repository for the
 # corresponding arduino code
 
 # ctypes is useful for defining fixed size data types
 import ctypes
 import sys
 
-import pycomando
+import pycommando
 import serial
 
 if len(sys.argv) < 2:
@@ -27,11 +27,11 @@ port = sys.argv[1]
 # open the serial port
 serial_port = serial.Serial(port, 9600)
 
-# create comando, the stream handler
-com = pycomando.Comando(serial_port)
+# create commando, the stream handler
+com = pycommando.Commando(serial_port)
 # create a few protocols to receive text and send/receive commands
-text = pycomando.protocols.TextProtocol(com)
-cmd = pycomando.protocols.CommandProtocol(com)
+text = pycommando.protocols.TextProtocol(com)
+cmd = pycommando.protocols.CommandProtocol(com)
 
 # register the created protocols, the protocol ids (first argument)
 # should match on both the arduino and in python
@@ -52,7 +52,7 @@ def led_set(cmd):
     if not cmd.has_arg():
         # if not, throw an error
         raise Exception("Invalid led_set response, missing arg")
-    # read the argument, you must tell comando the data type so
+    # read the argument, you must tell commando the data type so
     # it knows how many bytes to unpack, this is where it is
     # helpful to use ctypes data types rather than the usual
     # python types as they are of a fixed size
@@ -70,7 +70,7 @@ cmd.register_callback(0, led_set)
 cmd.send_command(0, (ctypes.c_byte(0), ))
 
 # this code below reads input from the user and sets the led value
-# to that input and updates comando to handle any incoming messages
+# to that input and updates commando to handle any incoming messages
 # from the arduino
 try:
     while True:
@@ -83,7 +83,7 @@ try:
             cmd.send_command(0, (ctypes.c_byte(i), ))
         except Exception as e:
             print("Invalid input: %s" % e)
-        # update comando
+        # update commando
         while serial_port.inWaiting():
             com.handle_stream()
 except KeyboardInterrupt:

@@ -4,10 +4,10 @@ import time
 
 import serial
 
-import pycomando
+import pycommando
 
-com = pycomando.Comando(serial.Serial('/dev/ttyACM0', 9600))
-text = pycomando.protocols.TextProtocol(com)
+com = pycommando.Commando(serial.Serial('/dev/ttyACM0', 9600))
+text = pycommando.protocols.TextProtocol(com)
 
 com.register_protocol(0, text)
 

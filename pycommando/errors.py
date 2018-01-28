@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 
-class ComandoError(Exception):
+class CommandoError(Exception):
     pass
 
 
-class MessageError(ComandoError):
+class MessageError(CommandoError):
     pass
 
 

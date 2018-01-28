@@ -24,7 +24,7 @@ def send(port, msg):
 
 
 def expect(port, msg):
-    print port, repr(msg)
+    print(port, repr(msg))
     n = port.read(1)
     print("\tRead n = %s" % repr(n))
     if n != '\x00':

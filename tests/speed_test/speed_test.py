@@ -7,12 +7,12 @@ import time
 
 import serial
 
-import pycomando
+import pycommando
 
 conn = serial.Serial('/dev/ttyACM0', 115200)
-com = pycomando.Comando(conn)
-text = pycomando.protocols.TextProtocol(com)
-cmd = pycomando.protocols.CommandProtocol(com)
+com = pycommando.Commando(conn)
+text = pycommando.protocols.TextProtocol(com)
+cmd = pycommando.protocols.CommandProtocol(com)
 
 com.register_protocol(0, text)
 com.register_protocol(1, cmd)

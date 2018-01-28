@@ -1,4 +1,4 @@
-Comando... Command your arduino!
+Commando... Command your arduino!
 
 ## Inspiration
 
@@ -22,7 +22,7 @@ To install the python library run
 python setup.py install
 ```
 
-To install the arduino library, copy libraries/comando to wherever your
+To install the arduino library, copy libraries/commando to wherever your
 arduino libraries are located (~/sketchbook/libraries on linux).
 
 ## Overview
@@ -34,7 +34,7 @@ You have two devices: 1 running python, and an arduino. You want these to:
 
 This communication happens over a stream (e.g. serial port), and will follow
 some structure (a protocol) that defines how data (i.e. messages) are
-organized. This structure is mirrored in comando.
+organized. This structure is mirrored in commando.
 
 ## Streams
 
@@ -44,7 +44,7 @@ passing bytes back and forth (i.e. has read, write).
 
 ## Protocols
 
-The real power of comando comes with using protocols. Protocols are ways to
+The real power of commando comes with using protocols. Protocols are ways to
 structure messages to do things like:
 
 1. have python trigger commands on the arduino

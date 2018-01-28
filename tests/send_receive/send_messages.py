@@ -7,21 +7,21 @@ import time
 import serial
 
 try:
-    import pycomando
+    import pycommando
 except ImportError:
     sys.path.append('../../')
-    import pycomando
+    import pycommando
 
-pycomando.protocols.command.test_type_conversion()
+pycommando.protocols.command.test_type_conversion()
 
 port = serial.Serial('/dev/ttyACM0', 9600)
 # time.sleep(1)  # wait for arduino
 # port.setDTR(level=0)
 # time.sleep(1)
 
-com = pycomando.Comando(port)
-text = pycomando.protocols.TextProtocol(com)
-cmd = pycomando.protocols.CommandProtocol(com)
+com = pycommando.Commando(port)
+text = pycommando.protocols.TextProtocol(com)
+cmd = pycommando.protocols.CommandProtocol(com)
 
 com.register_protocol(0, text)
 com.register_protocol(1, cmd)

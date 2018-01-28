@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Comando event manager example
+# Commando event manager example
 # 2016/07/22 : Brett Graham
 #
 # This example shows how to use an EventManager to control the arduino led
@@ -9,7 +9,7 @@
 import ctypes
 import sys
 
-import pycomando
+import pycommando
 import serial
 
 if len(sys.argv) < 2:
@@ -19,11 +19,11 @@ port = sys.argv[1]
 # open the serial port
 serial_port = serial.Serial(port, 9600)
 
-# create comando, the stream handler
-com = pycomando.Comando(serial_port)
+# create commando, the stream handler
+com = pycommando.Commando(serial_port)
 # create a few protocols to receive text and send/receive commands
-text = pycomando.protocols.TextProtocol(com)
-cmd = pycomando.protocols.CommandProtocol(com)
+text = pycommando.protocols.TextProtocol(com)
+cmd = pycommando.protocols.CommandProtocol(com)
 
 # register the created protocols, the protocol ids (first argument)
 # should match on both the arduino and in python
@@ -57,7 +57,7 @@ commands = {
 }
 
 # construct an event manager to allow easier access to the commands
-mgr = pycomando.protocols.command.EventManager(cmd, commands)
+mgr = pycommando.protocols.command.EventManager(cmd, commands)
 
 # register the callback "led_set" to be called whenever the arduino
 # sends a led_set command to python
@@ -67,7 +67,7 @@ mgr.on('led_set', led_set)
 mgr.blocking_trigger('led_set', 0)
 
 # this code below reads input from the user and sets the led value
-# to that input and updates comando to handle any incoming messages
+# to that input and updates commando to handle any incoming messages
 # from the arduino
 try:
     while True:
@@ -79,7 +79,7 @@ try:
             mgr.trigger('led_set', i)
         except Exception as e:
             print("Invalid input: %s" % e)
-        # update comando
+        # update commando
         while serial_port.inWaiting():
             com.handle_stream()
 except KeyboardInterrupt:

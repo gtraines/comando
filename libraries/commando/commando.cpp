@@ -1,4 +1,4 @@
-#include <comando.h>
+#include <commando.h>
 
 byte compute_checksum(byte *bytes, byte n) {
   byte cs = 0;
@@ -7,7 +7,7 @@ byte compute_checksum(byte *bytes, byte n) {
 };
 
 
-Protocol::Protocol(Comando & bcmdo) {
+Protocol::Protocol(Commando & bcmdo) {
   cmdo = &bcmdo;
 };
 
@@ -44,7 +44,7 @@ void Protocol::receive_message(byte *bytes, byte n_bytes) {
 };
 
 // =============== TextProtocol ============
-TextProtocol::TextProtocol(Comando & bcmdo): Protocol(bcmdo) {};
+TextProtocol::TextProtocol(Commando & bcmdo): Protocol(bcmdo) {};
 
 void TextProtocol::print(const char * str, byte n) {
     start_message();
@@ -64,14 +64,14 @@ void TextProtocol::print(const String &str) {
 };
 
 // =============== EchoProtocol ============
-EchoProtocol::EchoProtocol(Comando & bcmdo): Protocol(bcmdo) {};
+EchoProtocol::EchoProtocol(Commando & bcmdo): Protocol(bcmdo) {};
 
 void EchoProtocol::receive_message(byte *bytes, byte n_bytes) {
   send_message(bytes, n_bytes);
 };
 
 // =============== LogProtocol ============
-LogProtocol::LogProtocol(Comando & bcmdo): Protocol(bcmdo) {};
+LogProtocol::LogProtocol(Commando & bcmdo): Protocol(bcmdo) {};
 
 void LogProtocol::log(byte level, char *msg){
   start_message();
@@ -109,7 +109,7 @@ void LogProtocol::fatal(char *msg){
 };
 
 // =============== CommandProtocol ============
-CommandProtocol::CommandProtocol(Comando & bcmdo): Protocol(bcmdo) {
+CommandProtocol::CommandProtocol(Commando & bcmdo): Protocol(bcmdo) {
   for(byte i=0; i<MAX_CALLBACKS; i++) {
     callbacks[i] = NULL;
   };
@@ -155,8 +155,8 @@ bool CommandProtocol::has_arg() {
   return (arg_index < arg_buffern);
 };
 
-// ================= Comando ==========
-void Comando::receive_byte(byte b) {
+// ================= Commando ==========
+void Commando::receive_byte(byte b) {
   if (read_state == WAITING) {
     n_bytes = b;
     byte_index = 0;
@@ -183,7 +183,7 @@ void Comando::receive_byte(byte b) {
   };
 }
 
-void Comando::default_message_callback() {
+void Commando::default_message_callback() {
   if (n_bytes < 1) {
     send_error("Received message without protocol number");
   } else {
@@ -197,7 +197,7 @@ void Comando::default_message_callback() {
 };
 
 
-Comando::Comando(Stream & communication_stream) {
+Commando::Commando(Stream & communication_stream) {
   stream = &communication_stream;
   message_callback = NULL;
   error_protocol = -1;
@@ -207,79 +207,79 @@ Comando::Comando(Stream & communication_stream) {
   reset();
 };
 
-void Comando::reset() {
+void Commando::reset() {
   byte_index = 0;
   n_bytes = 0;
   cs = 0;
   read_state = WAITING;
 };
 
-void Comando::register_message_callback(callback_function message_handler) {
+void Commando::register_message_callback(callback_function message_handler) {
   message_callback = message_handler;
 };
 
-void Comando::unregister_message_callback() {
+void Commando::unregister_message_callback() {
   message_callback = NULL;
 };
 
-void Comando::handle_stream() {
+void Commando::handle_stream() {
   while (stream->available()) {
     receive_byte(stream->read());
   };
 };
 
-void Comando::send_message(byte *buffer, byte n) {
+void Commando::send_message(byte *buffer, byte n) {
   stream->write(n);
   stream->write(buffer, n);
   stream->write(compute_checksum(buffer, n));
 };
 
-void Comando::send_message(byte *buffer) {
+void Commando::send_message(byte *buffer) {
   send_message(buffer, strlen((char *) buffer));
 };
 
-void Comando::send_message(char *buffer, byte n) {
+void Commando::send_message(char *buffer, byte n) {
   send_message((byte *) buffer, n);
 };
 
-void Comando::send_message(char *buffer) {
+void Commando::send_message(char *buffer) {
   send_message(buffer, strlen(buffer));
 };
 
-void Comando::send_error(char *buffer, byte n) {
+void Commando::send_error(char *buffer, byte n) {
   if (error_protocol != -1) {
     protocols[error_protocol]->send_message((byte *) buffer, n);
   };
 };
 
-void Comando::send_error(char *buffer) {
+void Commando::send_error(char *buffer) {
   send_error(buffer, strlen(buffer));
 };
 
-byte Comando::copy_bytes(byte *buffer, byte n) {
+byte Commando::copy_bytes(byte *buffer, byte n) {
   if (n < n_bytes) return 0;
   if (n_bytes == 0) return 0;
   memcpy(buffer, bytes, n_bytes);
   return n_bytes;
 };
 
-byte Comando::copy_bytes(byte *buffer) {
+byte Commando::copy_bytes(byte *buffer) {
   return copy_bytes(buffer, n_bytes);
 };
 
-byte* Comando::get_bytes() {
+byte* Commando::get_bytes() {
   return bytes;
 };
 
-byte Comando::get_n_bytes() {
+byte Commando::get_n_bytes() {
   return n_bytes;
 };
 
-byte Comando::get_checksum() {
+byte Commando::get_checksum() {
   return cs;
 };
 
-void Comando::register_protocol(byte index, Protocol & protocol) {
+void Commando::register_protocol(byte index, Protocol & protocol) {
   if (index < MAX_PROTOCOLS) {
     protocols[index] = &protocol;
     protocol.set_index(index);
@@ -288,6 +288,6 @@ void Comando::register_protocol(byte index, Protocol & protocol) {
   };
 };
 
-void Comando::set_error_protocol(int pid) {
+void Commando::set_error_protocol(int pid) {
   error_protocol = pid;
 };

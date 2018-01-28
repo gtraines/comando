@@ -40,7 +40,7 @@ def send(port, msg):
 
 
 def expect(port, msg):
-    print port, repr(msg)
+    print(port, repr(msg))
     n = port.read(1)
     print("\tRead n = %s" % repr(n))
     if n != '\x00':
@@ -68,31 +68,31 @@ time.sleep(1)
 
 print("Echo a few floats")
 for f in (0, 0.001, 0.0001, 12345.0, 0.0347734):
-    send(port, build_message('\x03' + struct.pack('f', f)))
+    send(port, build_message(b'\x03' + struct.pack('f', f)))
     s = repr(read_in_all(port, wait=True))
     print(f, s)
 
-send(port, build_message('\x02' + struct.pack('I', 500)))
+send(port, build_message(b'\x02' + struct.pack('I', 500)))
 print(repr(read_in_all(port, wait=True)))
 
 print("Start blinking")
-send(port, build_message('\x01\x01'))
+send(port, build_message(b'\x01\x01'))
 time.sleep(3)
 
 # toggle blinking
 print("Toggle blinking")
-send(port, build_message('\x00'))
+send(port, build_message(b'\x00'))
 time.sleep(3)
 print("Toggle blinking")
-send(port, build_message('\x00'))
+send(port, build_message(b'\x00'))
 
 print("Increase blinking")
-send(port, build_message('\x02' + struct.pack('I', 100)))
+send(port, build_message(b'\x02' + struct.pack('I', 100)))
 time.sleep(3)
 
 print("Decrease blinking")
-send(port, build_message('\x02' + struct.pack('I', 1000)))
+send(port, build_message(b'\x02' + struct.pack('I', 1000)))
 time.sleep(3)
 
 print("Stop blinking")
-send(port, build_message('\x01\x00'))
+send(port, build_message(b'\x01\x00'))

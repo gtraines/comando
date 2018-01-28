@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-A very simple comando example.
+A very simple commando example.
 This does NOT use protocols and in that way is a BAD example
 """
 
@@ -9,12 +9,12 @@ import time
 
 import serial
 
-# play with the path so we can import pycomando even if it's nto installed
+# play with the path so we can import pycommando even if it's nto installed
 try:
-    import pycomando
+    import pycommando
 except ImportError:
     sys.path.append('../../')
-    import pycomando
+    import pycommando
 
 # connect to the serial port
 port = serial.Serial('/dev/ttyACM0', 9600)
@@ -24,7 +24,7 @@ port.setDTR(level=0)
 time.sleep(1)
 
 # create our stream handler
-com = pycomando.Comando(port)
+com = pycommando.Commando(port)
 
 
 # define a default message callback

@@ -1,11 +1,11 @@
 /* 
- * Comando
+ * Commando
  *
  * written by Brett Graham, March 2015
  */
 
-#ifndef COMANDO
-#define COMANDO
+#ifndef COMMANDO
+#define COMMANDO
 
 #include <inttypes.h>
 #if ARDUINO >= 100
@@ -15,7 +15,7 @@
 #endif
 
 
-class Comando;
+class Commando;
 class Protocol;
 class CommandProtocol;
 
@@ -46,12 +46,12 @@ enum {
 
 class Protocol {
   protected:
-    Comando *cmdo;
+    Commando *cmdo;
     byte index;
     byte buffer[MAX_MSG_LENGTH];  // for sending
     byte buffern;
   public:
-    Protocol(Comando & bcmdo);
+    Protocol(Commando & bcmdo);
     virtual void start_message();
     virtual void build_message(byte *bytes, byte n_bytes);
     virtual void finish_message();
@@ -63,7 +63,7 @@ class Protocol {
 
 class TextProtocol: public Protocol {
   public:
-    TextProtocol(Comando & bcmdo);
+    TextProtocol(Commando & bcmdo);
     void print(const char * str, byte n);
     void print(const char * str);  // look for \x00
     void print(const String &str);
@@ -71,13 +71,13 @@ class TextProtocol: public Protocol {
 
 class EchoProtocol: public Protocol {
   public:
-    EchoProtocol(Comando & bcmdo);
+    EchoProtocol(Commando & bcmdo);
     void receive_message(byte *bytes, byte n_bytes);
 };
 
 class LogProtocol: public Protocol {
   public:
-    LogProtocol(Comando & bcmdo);
+    LogProtocol(Commando & bcmdo);
     void log(byte level, char *msg);
     void debug(char *msg);
     void info(char *msg);
@@ -97,7 +97,7 @@ class CommandProtocol: public Protocol {
     char string_arg_buffer[MAX_STRING_ARG_LENGTH];
     command_callback callbacks[MAX_CALLBACKS];
   public:
-    CommandProtocol(Comando & bcmdo);
+    CommandProtocol(Commando & bcmdo);
     void receive_message(byte *bytes, byte n_bytes);
     void register_callback(byte index, command_callback callback);
     void start_command(byte cid);
@@ -139,7 +139,7 @@ class CommandProtocol: public Protocol {
     };
 };
 
-class Comando {
+class Commando {
   protected:
     byte byte_index;
     byte n_bytes;
@@ -155,7 +155,7 @@ class Comando {
     virtual void default_message_callback();
 
   public:
-    Comando(Stream & communication_stream);
+    Commando(Stream & communication_stream);
 
     void register_protocol(byte index, Protocol & protocol);
     void set_error_protocol(int pid);

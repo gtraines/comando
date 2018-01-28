@@ -3,7 +3,7 @@
 import ctypes
 import sys
 
-import pycomando
+import pycommando
 import serial
 
 import logging
@@ -13,16 +13,16 @@ f = logging.Formatter('%(name)s[%(levelno)s]: %(message)s')
 h = logging.StreamHandler()
 h.setLevel(logging.INFO)
 h.formatter = f
-pycomando.comando.logger.addHandler(h)
-pycomando.comando.logger.setLevel(logging.INFO)
+pycommando.commando.logger.addHandler(h)
+pycommando.commando.logger.setLevel(logging.INFO)
 
 port = '/dev/ttyACM1'
 if len(sys.argv) > 1:
     port = sys.argv[1]
 
 conn = serial.Serial(port, 9600)
-com = pycomando.Comando(conn)
-cmd = pycomando.protocols.CommandProtocol()
+com = pycommando.Commando(conn)
+cmd = pycommando.protocols.CommandProtocol()
 
 com.register_protocol(0, cmd)
 

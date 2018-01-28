@@ -1,11 +1,11 @@
 /*
  * Time sending/receiving bytes
  */
-#include<comando.h>
+#include<commando.h>
 
 #define CMD_PING 0
 
-Comando com = Comando(Serial);
+Commando com = Commando(Serial);
 TextProtocol text = TextProtocol(com);
 CommandProtocol cmd = CommandProtocol(com);
 

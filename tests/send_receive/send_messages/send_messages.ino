@@ -1,10 +1,10 @@
 /*
  * 
  */
-#include<comando.h>
+#include<commando.h>
 
-// Initialize the comando communication stream handler
-Comando com = Comando(Serial);
+// Initialize the commando communication stream handler
+Commando com = Commando(Serial);
 // Initialize a few communication protocols
 EchoProtocol echo = EchoProtocol(com);
 CommandProtocol cmd = CommandProtocol(com);

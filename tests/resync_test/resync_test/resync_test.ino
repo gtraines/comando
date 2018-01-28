@@ -2,7 +2,7 @@
  * Try to cause resyncing errors and recover from them
  */
 
-#include <comando.h>
+#include <commando.h>
 
 #define CMD_LED 0
 #define CMD_PING 1
@@ -11,7 +11,7 @@
 
 #define PING_DELAY 100
 
-Comando com = Comando(Serial);
+Commando com = Commando(Serial);
 
 CommandProtocol cmd = CommandProtocol(com);
 

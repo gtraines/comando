@@ -1,5 +1,5 @@
 # Class names and data types
-Comando	KEYWORD1
+Commando	KEYWORD1
 Protocol	KEYWORD1
 CommandProtocol	KEYWORD1
 TextProtocol	KEYWORD1

@@ -1,10 +1,10 @@
-/* A very simple comando example
+/* A very simple commando example
  * This does NOT use protocols and in that way is a BAD example
  */
-#include<comando.h>
+#include<commando.h>
 
-// Initialize the comando communication stream handler
-Comando com = Comando(Serial);
+// Initialize the commando communication stream handler
+Commando com = Commando(Serial);
 // create a text protocol for sending plain text
 TextProtocol text = TextProtocol(com);
 

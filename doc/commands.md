@@ -4,7 +4,7 @@ format:
 - command id [1 byte] the identifier of the corresponding command
 - payload [N bytes] the arguments to the command
 
-When comando receives a command message, it examines the command id and then
+When commando receives a command message, it examines the command id and then
 calls the corresponding command. The called command is responsible for
 parsing the payload to extract the command arguments but several helper
 functions are provided.
@@ -32,7 +32,7 @@ it to a variable, arg. The following python code does the same operation.
 ```
 
 It is helpful to use ctypes variables in python to gain tighter control
-over the number of bits used to represent arguments. See [command.py](https://github.com/braingram/comando/blob/master/pycomando/protocols/command.py)
+over the number of bits used to represent arguments. See [command.py](https://github.com/braingram/commando/blob/master/pycommando/protocols/command.py)
 for how the built-in struct module packs and unpacks various data types.
 
 has_arg

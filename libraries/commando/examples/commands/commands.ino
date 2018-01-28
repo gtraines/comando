@@ -1,5 +1,5 @@
 /*
- * Comando command protocol example
+ * Commando command protocol example
  * 2016/03/23 : Brett Graham
  * 
  * This is a simple example that shows how to control the arduino led
@@ -10,16 +10,16 @@
  * - receive commands from python to the arduino
  * - send commands from the arduino to python
  *
- * see examples/commands.py in the comando repository for the
+ * see examples/commands.py in the commando repository for the
  * corresponding python code
  */
 
-#include <comando.h>
+#include <commando.h>
 
 #define LED_PIN 13
 
-// Create a comando, stream handler, for the serial port
-Comando com = Comando(Serial);
+// Create a commando, stream handler, for the serial port
+Commando com = Commando(Serial);
 // Create protocols to send text and to send/receive commands
 TextProtocol text = TextProtocol(com);
 CommandProtocol cmd = CommandProtocol(com);
@@ -38,7 +38,7 @@ void set_led(CommandProtocol *cmd) {
   }
 
   // read the command argument, you must define the type as
-  // below to let comando know how to unpack the received argument
+  // below to let commando know how to unpack the received argument
   byte value = cmd->get_arg<byte>();
 
   // write this value to the led
@@ -47,7 +47,7 @@ void set_led(CommandProtocol *cmd) {
   // send a command back to python with the new led value
   // first, start building the command with the command id
   cmd->start_command(0);
-  // add an argument to the command, comando will infer the type
+  // add an argument to the command, commando will infer the type
   cmd->add_arg(value);
   // finish the command, this sends it to python
   cmd->finish_command();
@@ -61,7 +61,7 @@ void setup() {
   // start the serial connection
   Serial.begin(9600);
 
-  // register the comando protocols
+  // register the commando protocols
   // the first argument, the protocol id, should match on both
   // the arduino and python sides
   com.register_protocol(0, text);
