@@ -5,12 +5,23 @@ Base handler class
 This is responsible for reading/writing messages
 """
 
+import logging
+import sys
+
 from . import errors
 
-import logging
 
+if sys.version_info >= (3, 0):
+    to_bytes = lambda i: i.to_bytes(1, 'little')
+    stob = lambda s: s.encode('latin1') if isinstance(s, str) else s
+    btos = lambda b: b.decode('latin1') if isinstance(b, bytes) else b
+else:
+    to_bytes = chr
+    stob = str
+    btos = str
 
 logger = logging.getLogger(__name__)
+
 
 if False:  # set to True for debugging
     logger.setLevel(logging.DEBUG)
@@ -23,7 +34,12 @@ if False:  # set to True for debugging
 
 def checksum(bs):
     """Compute a checksum for an array of bytes"""
-    return sum([ord(b) for b in bs]) % 256
+    if len(bs) == 0:
+        return 0
+    if isinstance(bs[0], int):
+        return sum(bs) % 256
+    else:
+        return sum([ord(b) for b in bs]) % 256
 
 
 def build_message(bs):
@@ -32,7 +48,7 @@ def build_message(bs):
     if n > 255:
         raise errors.MessageError(
             "Messages cannot contain > 255 bytes [%s]" % n)
-    return chr(n) + bs + chr(checksum(bs))
+    return bytes(to_bytes(n) + stob(bs) + to_bytes(checksum(bs)))
 
 
 class Commando(object):
@@ -55,7 +71,7 @@ class Commando(object):
                 continue
             bs = chars[i+1:e]
             cs = chars[e]
-            if chr(checksum(bs)) == cs:
+            if to_bytes(checksum(bs)) == cs:
                 # this is a valid message, so parse it and keep trying to sync
                 try:
                     self.receive_message(bs)
@@ -84,17 +100,17 @@ class Commando(object):
                 "Invalid message length of bytes %s != %s" %
                 (len(bs), n))
         cs = self.stream.read(1)
-        if cs != chr(checksum(bs)):
+        if cs != to_bytes(checksum(bs)):
             logger.warning(
-                "checksum did not match: %s, %s", cs, chr(checksum(bs)))
+                "checksum did not match: %s, %s", cs, to_bytes(checksum(bs)))
             # this may be a result of out-of-sync communication
             # recover from this
             # original data was:
-            #  chr(n) + bs + cs
-            return self._resync(chr(n) + bs + cs)
+            #  to_bytes(n) + bs + cs
+            return self._resync(to_bytes(n) + bs + cs)
             #raise Exception(
             #    "Invalid message checksum [%s != %s]" %
-            #    (chr(checksum(bs)), cs))
+            #    (to_bytes(checksum(bs)), cs))
         self.receive_message(bs)
 
     def register_protocol(self, index, protocol):
@@ -117,16 +133,19 @@ class Commando(object):
             self.protocols[self.error_protocol].send_message(bs)
 
     def send_message(self, bs):
-        logger.debug("send_message: %s", bs)
+        logger.debug("send_message: %r", bs)
         self.stream.write(build_message(bs))
 
     def receive_message(self, bs):
-        logger.debug("receive_message: %s", bs)
+        logger.debug("receive_message: %r", bs)
         if self.message_callback is not None:
             return self.message_callback(bs)
         if (len(bs) < 1):
             raise errors.MessageError("Invalid message, missing protocol")
-        pid = ord(bs[0])
+        if isinstance(bs[0], int):
+            pid = bs[0]
+        else:
+            pid = ord(bs[0])
         if pid not in self.protocols:
             raise errors.MessageError("Unknown protocol: %s" % pid)
         self.protocols[pid].receive_message(bs[1:])
