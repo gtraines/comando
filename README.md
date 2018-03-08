@@ -53,14 +53,17 @@ structure messages to do things like:
 To use protocols, create a stream and handler (as above). Then register some
 protocols. Some example protocols are below.
 
-####TextProtocol
+#### TextProtocol
+
 Just sends text (byte arrays).
 
-####LogProtocol
+#### LogProtocol
+
 Log allows the arduino to issue python logging-like messages and python
 to pass on these messages to the logging module.
 
-####CommandProtocol
+#### CommandProtocol
+
 Allows the arduino to call python functions and python to call arduino
 functions. This is similar to the arduino cmdmessenger library.
 
