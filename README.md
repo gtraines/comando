@@ -1,4 +1,4 @@
-Commando... Command your arduino!
+Commando... Command your Arduino!
 
 ## Inspiration
 
@@ -6,9 +6,9 @@ How many times have you written a 'simple' protocol for communicating with
 an Arduino that turned into anything but 'simple'? This project is meant to
 solve a few goals
 
-1. make calling commands on an arduino from a computer (and vice versa) easy
+1. make calling commands on an Arduino from a computer (and vice versa) easy
 2. remove the need to write serial protocols for transferring common datatypes
-3. allow simultaneuous use of multiple protocols (e.g. debug and command)
+3. allow simultaneous use of multiple protocols (e.g. debug and command)
 
 The initial inspiration came from an attempt to use cmdmessenger and finding
 it difficult to send simple datatypes (i.e. floats).
@@ -22,12 +22,12 @@ To install the python library run
 python setup.py install
 ```
 
-To install the arduino library, copy libraries/commando to wherever your
-arduino libraries are located (~/sketchbook/libraries on linux).
+To install the Arduino library, copy libraries/commando to wherever your
+Arduino libraries are located (~/sketchbook/libraries on linux).
 
 ## Overview
 
-You have two devices: 1 running python, and an arduino. You want these to:
+You have two devices: 1 running Python, and an Arduino. You want these to:
 
 1. call commands on the other one
 2. transfer data
@@ -38,8 +38,8 @@ organized. This structure is mirrored in commando.
 
 ## Streams
 
-A stream is the conduit through which messages are passed between python and
-the arduino. So far, this is a serial port but could be anything that allows
+A stream is the conduit through which messages are passed between Python and
+the Arduino. So far, this is a serial port but could be anything that allows
 passing bytes back and forth (i.e. has read, write).
 
 ## Protocols
@@ -47,8 +47,8 @@ passing bytes back and forth (i.e. has read, write).
 The real power of commando comes with using protocols. Protocols are ways to
 structure messages to do things like:
 
-1. have python trigger commands on the arduino
-2. have the arduino trigger commands in python
+1. have Python trigger commands on the Arduino
+2. have the Arduino trigger commands in Python
 
 To use protocols, create a stream and handler (as above). Then register some
 protocols. Some example protocols are below.
@@ -59,13 +59,13 @@ Just sends text (byte arrays).
 
 #### LogProtocol
 
-Log allows the arduino to issue python logging-like messages and python
+Log allows the Arduino to issue Python logging-like messages and Python
 to pass on these messages to the logging module.
 
 #### CommandProtocol
 
-Allows the arduino to call python functions and python to call arduino
-functions. This is similar to the arduino cmdmessenger library.
+Allows the Arduino to call Python functions and Python to call Arduino
+functions. This is similar to the Arduino cmdmessenger library.
 
 Commands callbacks are registered in a similar way as protocols.
 
