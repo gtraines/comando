@@ -1,6 +1,8 @@
 A (working) alternative to cmdmessenger.
 
-Message format: length in bytes 0-255,byte0,byte1...byteN-1,checksum
+#### Message format 
+
+`length in bytes 0-255,byte0,byte1...byteN-1,checksum`
 
 No lf, no cr, no nothing
 
@@ -11,8 +13,8 @@ Message format: cmd 0-255,args...
 
 Each command will have to know prior to execution:
 
-# how many args to expect [if any]
-# the types of each arg
+- how many args to expect [if any]
+- the types of each arg
 
 Args could be any type (strings, ints, bools, floats, etc...).
 
@@ -59,9 +61,11 @@ Format:
 
 ### argtypes
 
-Name (index): nbytes, format
-- boolean (0): 1
-- char (1): 1
+
+Name | Index | N bytes | Format
+---
+boolean | (0) | 1 |
+char    | (1) | 1 | 
 - uchar (2): 1
 - byte (3): 1
 - int (4): 2
