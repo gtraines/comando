@@ -37,8 +37,8 @@ cmd 0-255,nargs 0-255, args as packed bytes
 
 This way, verbose and more concise (but less readable) protocols can easily be swapped.
 
-#Message format
-##Basic
+# Message format
+## Basic
 A completely unprocessed command
 
 msglength(0-255),byte0,byte1...byteN-1,checksum
@@ -47,17 +47,17 @@ where checksum is a sum of all bytes (not message length) % 256
 
 Everything else is built on top of this by packing stuff into the bytes payload.
 
-##Payload
+## Payload
 
 The first byte of the payload defines the protocol to use: protocol[0-255]
 Everything after this is defined by the protocol
 
-#Protocols
-##Command (similar to cmdmessenger)
+# Protocols
+## Command (similar to cmdmessenger)
 Format:
     cmd(0-255),arg0byte0,arg1byte1...
 
-###argtypes
+### argtypes
 
 Name (index): nbytes, format
 - boolean (0): 1
