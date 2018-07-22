@@ -9,7 +9,7 @@ import sys
 
 from .base import Protocol
 from .. import errors
-from ..comando import to_bytes, stob, btos
+from pycommando.commando import to_bytes, stob, btos
 
 if sys.version_info >= (3, 0):
     unicode = str

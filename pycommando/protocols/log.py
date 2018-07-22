@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from .base import Protocol
-from ..comando import to_bytes
+from pycommando.commando import to_bytes
 
 import logging
 

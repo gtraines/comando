@@ -7,7 +7,7 @@ This does NOT use protocols and in that way is a BAD example
 import sys
 import time
 
-import serial
+from serial import Serial
 
 # play with the path so we can import pycommando even if it's nto installed
 try:
@@ -17,7 +17,7 @@ except ImportError:
     import pycommando
 
 # connect to the serial port
-port = serial.Serial('/dev/ttyACM0', 9600)
+port = Serial('/dev/ttyACM0', 9600)
 # if this is an arduino, reset it and wait
 #time.sleep(1)  # wait for arduino
 #port.setDTR(level=0)

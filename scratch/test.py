@@ -2,14 +2,14 @@
 
 import struct
 
-import serial
+from serial import Serial
 
 
 port = '/dev/ttyUSB0'
 baud = 9600
 
 # create stream
-s = serial.Serial(port, baud)
+s = Serial(port, baud)
 
 # create stream handler
 # this reads/writes to the stream

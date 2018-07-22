@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from .base import Protocol
-from .. import errors
+from pycommando import errors
 
 import logging
 
