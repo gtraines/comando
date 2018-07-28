@@ -1,12 +1,8 @@
 /*
  * 
  */
-<<<<<<< HEAD
-#include<commando.h>
-=======
-#include<comando.h>
+#include <commando.h>
 #define LED 13
->>>>>>> b5a30c92b56bc8296ab6e49589a776f7a40872ff
 
 // Initialize the commando communication stream handler
 Commando com = Commando(Serial);

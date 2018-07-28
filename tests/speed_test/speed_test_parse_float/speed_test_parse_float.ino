@@ -1,3 +1,4 @@
+#include <Arduino.h>
 
 float numbers[3] = {0.0, 0.0, 0.0};
 

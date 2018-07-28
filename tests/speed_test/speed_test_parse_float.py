@@ -28,6 +28,6 @@ ts = []
 for i in xrange(1000):
     ts.append(send_ping(i))
 
-print "times:", ts
-print "\tmean: %s" % (sum(ts) / len(ts), )
-print "\tmax : %s" % (max(ts), )
+print("times:", ts)
+print("\tmean: %s" % (sum(ts) / len(ts), ))
+print("\tmax : %s" % (max(ts), ))
