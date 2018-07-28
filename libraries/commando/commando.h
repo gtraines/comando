@@ -7,11 +7,15 @@
 #ifndef COMMANDO
 #define COMMANDO
 
+#ifndef ARDUINO
+#define ARDUINO 101
+#endif // !ARDUINO
+
 #include <inttypes.h>
-#if ARDUINO >= 100
-#include <Arduino.h> 
+#if ARDUINO < 100
+#include <WProgram.h>
 #else
-#include <WProgram.h> 
+#include <Arduino.h> 
 #endif
 
 

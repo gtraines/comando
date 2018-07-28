@@ -349,7 +349,7 @@ class EventManager(object):
             if 'name' not in command:
                 raise ValueError("Command must have name: %s" % (command, ))
             n = command['name']
-            if 'name' in self._commands_by_name:
+            if n in self._commands_by_name:
                 raise ValueError("Command name %s is not unique" % (n, ))
             command['id'] = cid
             self._commands_by_name[n] = command
@@ -391,6 +391,13 @@ class EventManager(object):
         if name not in self._callbacks:
             self._callbacks[name] = []
         self._callbacks[name].append(func)
+
+    def remove_on(self, name, func):
+        """Un-register a callback (func) for a given command name"""
+        if name not in self._callbacks:
+            return
+        if func in self._callbacks[name]:
+            self._callbacks[name].remove(func)
 
     def trigger(self, name, *args):
         """Trigger a command by name with arguments (args)"""

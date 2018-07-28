@@ -11,12 +11,12 @@ solve a few goals
 3. allow simultaneous use of multiple protocols (e.g. debug and command)
 
 The initial inspiration came from an attempt to use cmdmessenger and finding
-it difficult to send simple datatypes (i.e. floats).
+it difficult to send simple datatypes (e.g. floats).
 
 
 ## Install
 
-To install the python library run
+To install the Python library run
 
 ```
 python setup.py install
