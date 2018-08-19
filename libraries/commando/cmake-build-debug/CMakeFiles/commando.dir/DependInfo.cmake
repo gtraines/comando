@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/graham/_Source/commando/libraries/commando/commando.cpp" "/home/graham/_Source/commando/libraries/commando/cmake-build-debug/CMakeFiles/commando.dir/commando.cpp.o"
+  "/home/graham/Source/commando/libraries/commando/commando.cpp" "/home/graham/Source/commando/libraries/commando/cmake-build-debug/CMakeFiles/commando.dir/commando.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -55,7 +55,7 @@ class Protocol {
     byte buffer[MAX_MSG_LENGTH];  // for sending
     byte buffern;
   public:
-    Protocol(Commando & bcmdo);
+    Protocol(Commando& bcmdo);
     virtual void start_message();
     virtual void build_message(byte *bytes, byte n_bytes);
     virtual void finish_message();
@@ -67,7 +67,7 @@ class Protocol {
 
 class TextProtocol: public Protocol {
   public:
-    TextProtocol(Commando & bcmdo);
+    TextProtocol(Commando& bcmdo);
     void print(const char * str, byte n);
     void print(const char * str);  // look for \x00
     void print(const String &str);
@@ -75,13 +75,13 @@ class TextProtocol: public Protocol {
 
 class EchoProtocol: public Protocol {
   public:
-    EchoProtocol(Commando & bcmdo);
+    EchoProtocol(Commando& bcmdo);
     void receive_message(byte *bytes, byte n_bytes);
 };
 
 class LogProtocol: public Protocol {
   public:
-    LogProtocol(Commando & bcmdo);
+    LogProtocol(Commando& bcmdo);
     void log(byte level, char *msg);
     void debug(char *msg);
     void info(char *msg);
@@ -160,9 +160,9 @@ class Commando {
     virtual void default_message_callback();
 
   public:
-    Commando(Stream & communication_stream);
+    Commando(Stream& communication_stream);
 
-    void register_protocol(byte index, Protocol & protocol);
+    void register_protocol(byte index, Protocol& protocol);
     void set_error_protocol(int pid);
 
     void reset();

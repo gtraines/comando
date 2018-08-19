@@ -7,7 +7,7 @@ byte compute_checksum(byte *bytes, byte n) {
 };
 
 
-Protocol::Protocol(Commando & bcmdo) {
+Protocol::Protocol(Commando& bcmdo) {
   cmdo = &bcmdo;
 };
 
@@ -44,7 +44,7 @@ void Protocol::receive_message(byte *bytes, byte n_bytes) {
 };
 
 // =============== TextProtocol ============
-TextProtocol::TextProtocol(Commando & bcmdo): Protocol(bcmdo) {};
+TextProtocol::TextProtocol(Commando& bcmdo): Protocol(bcmdo) {};
 
 void TextProtocol::print(const char * str, byte n) {
     start_message();
@@ -64,14 +64,14 @@ void TextProtocol::print(const String &str) {
 };
 
 // =============== EchoProtocol ============
-EchoProtocol::EchoProtocol(Commando & bcmdo): Protocol(bcmdo) {};
+EchoProtocol::EchoProtocol(Commando& bcmdo): Protocol(bcmdo) {};
 
 void EchoProtocol::receive_message(byte *bytes, byte n_bytes) {
   send_message(bytes, n_bytes);
 };
 
 // =============== LogProtocol ============
-LogProtocol::LogProtocol(Commando & bcmdo): Protocol(bcmdo) {};
+LogProtocol::LogProtocol(Commando& bcmdo): Protocol(bcmdo) {};
 
 void LogProtocol::log(byte level, char *msg){
   start_message();
@@ -109,7 +109,7 @@ void LogProtocol::fatal(char *msg){
 };
 
 // =============== CommandProtocol ============
-CommandProtocol::CommandProtocol(Commando & bcmdo): Protocol(bcmdo) {
+CommandProtocol::CommandProtocol(Commando& bcmdo): Protocol(bcmdo) {
   for(byte i=0; i<MAX_CALLBACKS; i++) {
     callbacks[i] = NULL;
   };
@@ -197,7 +197,7 @@ void Commando::default_message_callback() {
 };
 
 
-Commando::Commando(Stream & communication_stream) {
+Commando::Commando(Stream& communication_stream) {
   stream = &communication_stream;
   message_callback = NULL;
   error_protocol = -1;
@@ -279,7 +279,7 @@ byte Commando::get_checksum() {
   return cs;
 };
 
-void Commando::register_protocol(byte index, Protocol & protocol) {
+void Commando::register_protocol(byte index, Protocol& protocol) {
   if (index < MAX_PROTOCOLS) {
     protocols[index] = &protocol;
     protocol.set_index(index);

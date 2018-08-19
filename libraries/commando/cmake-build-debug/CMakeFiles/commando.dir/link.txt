@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/commando.dir/commando.cpp.o  -o commando 
